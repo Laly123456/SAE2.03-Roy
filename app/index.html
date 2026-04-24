@@ -1,52 +1,132 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <title>SAE2.03 APP</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./css/base.css" />
-  </head>
 
-  <body>
-    <header id="header"></header>
+<head>
+  <title>SAE2.03 APP</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./css/base.css" />
+  <link rel="stylesheet" href="./component/Movie/style.css" />
+  <link rel="stylesheet" href="./component/NavBar/style.css" />
+  <link rel="stylesheet" href="./component/MovieDetail/style.css" />
+  
+</head>
 
-    <section id="content"></section>
+<body>
+  <header id="header"></header>
+  <section id="content"></section>
 
-    <script type="module">
-      import { NavBar } from "./component/NavBar/script.js";
+  <script type="module">
+    import { NavBar } from "./component/NavBar/script.js";
+    import { Movie } from "./component/Movie/script.js";
+    import { MovieDetail } from "./component/MovieDetail/script.js";
+    import { DataMovie } from "./data/dataMovie.js";
+    import { DataProfile } from "./data/dataProfile.js";
+    import { ProfilePicker } from "./component/ProfilePicker/script.js";
 
-      // Controleur
-      // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
-      // Une fois l'application terminée, on pourrait remettre let C.
-      window.C = {};
+   
+    window.C = {};
+    window.currentProfile = null;
 
-      C.handlerAbout = function () {
-        alert(
-          "Ceci est une base de projet pour la SAE2.03 édition 2025. Bonne chance !"
-        );
-      };
+    C.handlerAbout = function () {
+      alert("MMI STREAM - SAE2.03");
+    };
 
-      C.start = function () {
-        V.renderNavBar("C.handlerAbout()");
-      };
+    // Affiche tous les films (Accueil)
+    C.handlerMovie = async function () {
+      const movies = await DataMovie.requestMovies();
+      V.renderMovies(movies);
+    };
 
-      // Vue (contient tout ce qui est relatif à l'affichage)
-      window.V = {};
+    // Affiche les détails d'un film
+    C.handlerMovieDetail = async function (movieId) {
+      const movie = await DataMovie.requestMovieById(movieId);
+      V.renderMovieDetail(movie);
+    };
 
-      /**
-       * V.renderNavBar
-       *
-       * Cette fonction est responsable de l'affichage de la barre de navigation (NavBar).
-       * Elle sélectionne l'élément HTML avec l'ID "header" et y insère le contenu
-       * formaté par le composant NavBar.
-       */
-      V.renderNavBar = function (hAbout) {
-        let header = document.querySelector("#header");
-        header.innerHTML = NavBar.format(hAbout);
-      };
+    // Filtre par catégorie depuis le menu
+    C.handlerMovieCategory = async function (id_cat) {
+      const movies = await DataMovie.requestMoviesByCategory(id_cat);
+      V.renderMovies(movies);
+    };
 
-      C.start(); // Démarre l'application
-    </script>
-  </body>
+
+
+    //iteration 6 : les profils 
+C.handlerSelectProfile = function(id, name, avatar) {
+    window.currentProfile = id;
+
+    if (NavBar.activeProfile) {
+        NavBar.activeProfile(name, avatar);
+    }
+    
+    C.handlerMovie(); 
+};
+
+    // Démarrage de l'application
+C.start = async function () {
+    V.renderNavBar("C.handlerAbout()");
+
+    try {
+        const [profiles, categories] = await Promise.all([
+            DataProfile.read(),
+            DataMovie.requestAllCategories()
+        ]);
+
+        if (NavBar.fillNames) NavBar.fillNames(categories);
+        if (NavBar.fillProfiles) NavBar.fillProfiles(profiles);
+
+
+        C.handlerMovie(); 
+
+    } catch (error) {
+        console.error("Erreur :", error);
+        C.handlerMovie(); 
+    }
+};
+
+
+
+
+
+
+
+
+
+  
+    window.V = {};
+
+    V.renderNavBar = function (hAbout) {
+      document.querySelector("#header").innerHTML = NavBar.format(hAbout);
+    };
+
+    V.renderMovies = function (movies) {
+      let content = document.querySelector("#content");
+      if (!content) return;
+
+      content.innerHTML = ""; 
+      content.className = "movie-grid";
+
+      let html = "";
+      if (Array.isArray(movies) && movies.length > 0) {
+        for (let i = 0; i < movies.length; i++) {
+          html += Movie.format(movies[i]);
+        }
+      } else {
+        html = "<p class='empty-msg'>Aucun film trouvé.</p>";
+      }
+      content.innerHTML = html;
+    };
+
+    V.renderMovieDetail = function (movie) {
+      let content = document.querySelector("#content");
+      content.className = "movie-detail-view";
+      content.innerHTML = MovieDetail.format(movie);
+    };
+
+    // Lancement effectif
+    C.start();
+  </script>
+</body>
+
 </html>
-<script type="module"></script>

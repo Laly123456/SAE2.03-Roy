@@ -1,0 +1,95 @@
+:root {
+    /* Palette de couleurs */
+    --color-bg-dark: #141414;
+    --color-bg-card: #1f1f1f;
+    --color-text-main: #ffffff;
+    --color-text-muted: #b3b3b3;
+    --color-accent: #f26a8d; 
+    --color-btn-hover: #333333;
+    
+    --radius-main: 0.8rem;
+    --shadow-soft: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.5);
+}
+
+.movie-detail-container {
+    margin: 0 auto;
+    padding: 2.5rem;
+    color: var(--color-text-main);
+}
+
+/* Bouton Retour stylisé */
+.btn-back {
+    background-color: var(--color-bg-card);
+    color: var(--color-text-main);
+    border: 0.06rem solid #333;
+    padding: 0.7rem 1.4rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    margin-bottom: 2rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn-back:hover {
+    background-color: var(--color-btn-hover);
+    border-color: var(--color-text-muted);
+}
+
+/* --- Layout Vidéo --- */
+.movie-detail-video {
+    width: 100%;
+    margin-bottom: 2.5rem;
+    box-shadow: var(--shadow-soft);
+    border-radius: var(--radius-main);
+    overflow: hidden; /* Pour que l'iframe respecte l'arrondi */
+}
+
+.movie-detail-video iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: none;
+    display: block;
+}
+
+
+.movie-detail-info {
+    background: linear-gradient(180deg, var(--color-bg-card) 0%, #111 100%);
+    padding: 2.5rem;
+    border-radius: var(--radius-main);
+    border-left: 0.3rem solid var(--color-accent); /* Petite touche de couleur sur le côté */
+}
+
+.movie-detail-info h1 {
+    font-size: 3rem;
+    margin: 0;
+    letter-spacing: -0.05rem;
+}
+
+.movie-meta {
+    color: var(--color-text-muted);
+    font-size: 1.2rem;
+    margin: 1rem 0 2rem 0;
+    display: flex;
+    gap: 1rem;
+}
+
+.movie-meta span:not(:last-child)::after {
+    content: "|";
+    margin-left: 1rem;
+    opacity: 0.5;
+}
+
+.description-title {
+    color: var(--color-accent);
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.description-text {
+    line-height: 1.8;
+    font-size: 1.15rem;
+    color: var(--color-text-muted);
+}

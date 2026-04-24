@@ -5,27 +5,62 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/base.css" />
+    <link rel="stylesheet" href="./css/variables.css" />
+    <link rel="stylesheet" href="./component/MovieForm/style.css" />
   </head>
-  <body>
+<body>
+    <header id="header"></header> 
     <section id="log"></section>
+    <section id="content"></section>
 
-    <script type="module">
-      import { Log } from "./component/Log/script.js";
+   <script type="module">
+    import { Log } from "./component/Log/script.js";
+    import { DataMovie } from "./data/dataMovie.js";
+    import { DataProfile } from "./data/dataProfile.js";
+    import { MovieForm } from "./component/MovieForm/script.js"; 
+    import { ProfileForm } from "./component/ProfileForm/script.js";
+    import { AdminNav } from "./component/AdminNav/script.js";
 
-      window.C = {};
+    window.C = {};
+    window.V = {};
 
-      C.start = function () {
-        V.renderLog("Démarrage de l'application");
-      };
+// GESTION DES FILMS 
+    C.handlerShowMovieForm = function() {
+        document.querySelector("#content").innerHTML = MovieForm.format(); 
+        MovieForm.listenSubmit(); 
+    };
 
-      window.V = {};
+    C.handlerAddMovie = async function(formData) {
+        let res = await DataMovie.add(formData);
+        if (res) alert("Film ajouté !");
+    };
 
-      V.renderLog = function (txt) {
-        let content = document.querySelector("#log");
-        content.innerHTML = Log.format(txt);
-      };
+    //GESTION DES PROFILS
+    C.handlerShowProfileForm = function() {
+        document.querySelector("#content").innerHTML = ProfileForm.format(); 
+        ProfileForm.listenSubmit(); 
+    };
 
-      C.start();
-    </script>
-  </body>
-</html>
+    C.handlerAddProfile = async function(formData) {
+        let res = await DataProfile.add(formData);
+        if (res) alert("Profil ajouté avec succès !");
+    };
+
+    // LOG 
+    C.handlerLog = function() {
+        let logSection = document.querySelector("#log");
+        if (logSection) {
+            logSection.innerHTML = Log.format();
+            if (Log.listen) Log.listen(); 
+        }
+    };
+
+    C.start = async function () {
+        C.handlerLog();
+        document.querySelector("#header").innerHTML = AdminNav.format();
+        AdminNav.listen();
+        C.handlerShowProfileForm();
+    };
+
+    C.start();
+</script>

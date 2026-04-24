@@ -1,27 +1,64 @@
 <?php
-
-/** ARCHITECTURE PHP SERVEUR  : Rôle du fichier controller.php
- * 
- *  Dans ce fichier, on va définir les fonctions de contrôle qui vont traiter les requêtes HTTP.
- *  Les requêtes HTTP sont interprétées selon la valeur du paramètre 'todo' de la requête (voir script.php)
- *  Pour chaque valeur différente, on déclarera une fonction de contrôle différente.
- * 
- *  Les fonctions de contrôle vont éventuellement lire les paramètres additionnels de la requête, 
- *  les vérifier, puis appeler les fonctions du modèle (model.php) pour effectuer les opérations
- *  nécessaires sur la base de données.
- *  
- *  Si la fonction échoue à traiter la requête, elle retourne false (mauvais paramètres, erreur de connexion à la BDD, etc.)
- *  Sinon elle retourne le résultat de l'opération (des données ou un message) à includre dans la réponse HTTP.
- */
-
-/** Inclusion du fichier model.php
- *  Pour pouvoir utiliser les fonctions qui y sont déclarées et qui permettent
- *  de faire des opérations sur les données stockées en base de données.
- */
 require("model.php");
 
-
-function readMoviesController(){
-    $movies = getAllMovies();
-    return $movies;
+/* ITÉRATION 4  */
+function readMoviesController() {
+    return getAllMovies();
 }
+
+function readMovieCategoriesController() {
+    return getAllCategories();
+}
+
+function readMoviesByCategoryController() {
+    if (isset($_REQUEST['id_cat'])) {
+        return getMoviesByCategoryId($_REQUEST['id_cat']);
+    }
+    return false;
+}
+
+/* ITÉRATION 2 */
+function readMovieDetailController(){
+    if(isset($_REQUEST['id'])){
+        return getMovieById($_REQUEST['id']);
+    }
+    return false;
+}
+
+/*ITÉRATION 3 */
+function addMovieController() {
+    if (isset($_REQUEST['name']) && !empty($_REQUEST['name']) && isset($_REQUEST['image'])) {
+        
+        return addMovie(
+            $_REQUEST['name'],
+            $_REQUEST['director'] ,
+            $_REQUEST['year'] ,
+            $_REQUEST['length'] ,
+            $_REQUEST['description'] ,
+            $_REQUEST['id_category'] ,
+            $_REQUEST['image'],
+            $_REQUEST['trailer'] ,
+            $_REQUEST['min_age'] 
+        );
+    }
+    return false; 
+}
+
+//iteration 5
+
+function addProfileController() {
+    if (isset($_REQUEST['name']) && !empty($_REQUEST['name'])) {
+        return addProfile(
+            $_REQUEST['name'],
+            $_REQUEST['avatar'] ?? "",
+            $_REQUEST['min_age'] ?? 0
+        );
+    }
+    return false;
+}
+
+//iteration 6 
+function readProfilesController() {
+    return readProfiles();
+}
+?>

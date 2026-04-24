@@ -1,0 +1,21 @@
+<div class="form-container">
+    <h2>Ajouter un profil utilisateur</h2>
+    <form id="form-add-profile">
+        <div class="form-group">
+            <label>Nom du profil :</label>
+            <input type="text" name="name" placeholder="Ex: Jean Dupont" required />
+        </div>
+
+        <div class="form-group">
+            <label>Avatar (URL) :</label>
+            <input type="text" name="avatar" placeholder="http://image.jpg (facultatif)" />
+        </div>
+
+        <div class="form-group">
+            <label>Âge minimum :</label>
+            <input type="number" name="min_age" value="0" min="0" />
+        </div>
+
+        <button type="submit" class="btn-submit">Créer le profil</button>
+    </form>
+</div>

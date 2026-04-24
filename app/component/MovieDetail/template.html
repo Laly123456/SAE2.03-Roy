@@ -1,0 +1,23 @@
+<div class="movie-detail-container">
+    <button class="btn-back" onclick="C.handlerHome()">← Retour à la liste</button>
+    
+    <div class="movie-detail-main">
+        <div class="movie-detail-video">
+            <iframe src="{{trailer}}" allowfullscreen></iframe>
+        </div>
+
+        <div class="movie-detail-info">
+            <h1>{{name}}</h1>
+            <div class="movie-meta">
+                <span>{{year}}</span>
+                <span>{{length}} min</span>
+                <span>Âge : {{min_age}}+</span>
+            </div>
+            
+            <p><strong>Réalisateur :</strong> {{director}}</p>
+            
+            <span class="description-title">Synopsis</span>
+            <p class="description-text">{{description}}</p>
+        </div>
+    </div>
+</div>

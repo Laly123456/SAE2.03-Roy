@@ -1,21 +1,88 @@
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 3rem;
-  color: var(--color-fg);
-  background-color: var(--color-bg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--color-black); 
+    padding: 0 2rem;
+    position: relative;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 
-  .navbar__item {
-    --_offset: 0.2rem;
-    padding: 0.5rem 1rem;
-    text-decoration: underline;
-    text-decoration-thickness: 0.1rem;
-    text-underline-offset: var(--_offset);
+}
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 30px; 
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: var(--jaune-clair); 
+}
+
+
+.dropdown {
+    position: relative;
+    height: 60px; 
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 60px; 
+    left: 0;
+    background-color: #1a1a1a;
+    min-width: 180px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #333;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.5);
+    z-index: 9999;
+}
+
+
+.menu-right {
+    left: auto;
+    right: 0;
+}
+
+.dropdown-menu li {
+    width: 100%;
+}
+
+.dropdown-menu li a {
+    display: block;
+    padding: 12px 20px; 
+    color: white;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.dropdown-menu li a:hover {
+    background-color: var(--jaune-clair);
+    color: #000; 
+    font-weight: bold;
+}
+
+.profile-trigger {
+    display: flex;
+    align-items: center;
     cursor: pointer;
-    transition: text-underline-offset 0.2s ease-in-out;
-    &:hover {
-      --_offset: 0.5rem;
-    }
-  }
+}
+
+#nav-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 4px;
 }

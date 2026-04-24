@@ -12,4 +12,20 @@
   /* Sementic Tokens */
   --color-fg: var(--color-white);
   --color-bg: var(--color-gray-dark);
+
+
+
+      
+    --card-shadow: rgba(0, 0, 0, 0.1);
+    --overlay-gradient: rgba(0, 0, 0, 0.8);
+    --radius-card: 0.75rem;
+
+
+
+        --bg: #333533;
+    --rose-clair: #ec698f;
+    --rose-cerise: #c23350;
+    --bordure-grise: #cccccc;
+    --jaune : #ffee32;
+    --jaune-clair : #FFFD6D;
 }

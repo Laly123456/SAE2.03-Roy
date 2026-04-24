@@ -3,17 +3,28 @@ let HOST_URL = "..";//"http://mmi.unilim.fr/~????"; // CHANGE THIS TO MATCH YOUR
 
 let DataMovie = {};
 
-DataMovie.requestMovies = async function(){
-    // fetch permet d'envoyer une requête HTTP à l'URL spécifiée. 
-    // L'URL est construite en concaténant HOST_URL à "/server/script.php?direction=" et la valeur de la variable dir. 
-    // L'URL finale dépend de la valeur de HOST_URL et de dir.
-    let answer = await fetch(HOST_URL + "/server/script.php?todo=readmovies)");
-    // answer est la réponse du serveur à la requête fetch.
-    // On utilise ensuite la méthode json() pour extraire de cette réponse les données au format JSON.
-    // Ces données (data) sont automatiquement converties en objet JavaScript.
-    let data = await answer.json();
-    // Enfin, on retourne ces données.
-    return data;
+// Pour la grille d'accueil
+DataMovie.requestMovies = async function() {
+    let answer = await fetch(HOST_URL + "/server/script.php?todo=readmovies");
+    return await answer.json();
 }
 
-export {DataMovie};
+// Pour remplir le menu déroulant
+DataMovie.requestAllCategories = async function() {
+    let answer = await fetch(HOST_URL + "/server/script.php?todo=readMovieCategories");
+    return await answer.json();
+}
+
+// Pour filtrer
+DataMovie.requestMoviesByCategory = async function(id) {
+    let answer = await fetch(HOST_URL + "/server/script.php?todo=readMoviesByCategory&id_cat=" + id);
+    return await answer.json();
+}
+
+// Pour les détails
+DataMovie.requestMovieById = async function(id) {
+    let answer = await fetch(HOST_URL + "/server/script.php?todo=readMovieDetail&id=" + id);
+    return await answer.json();
+};
+
+export { DataMovie };

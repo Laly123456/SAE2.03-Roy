@@ -15,4 +15,19 @@
   --color-fg: var(--color-white);
   --color-bg: var(--color-gray-dark);
   --color-accent: var(--color-green);
+
+
+
+
+/* Couleurs simples FORMULAIRE */
+    --fond-formulaire: #f6f5ed;
+    --fond-bouton: #ec698f;
+    --fond-bouton-survol: #c23350;
+    --texte-noir: #1a1a1a;
+    --texte-blanc: #ffffff;
+    --bordure-grise: #cccccc;
+    --ombre-douce: rgba(0, 0, 0, 0.15);
+        --jaune : #ffee32;
+    --jaune-clair : #FFFD6D;
+
 }

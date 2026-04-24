@@ -1,5 +1,20 @@
-<nav class="navbar font-sans">
-  <ul class="navbar__list">
-    <li class="navbar__item" onclick="{{hAbout}}">About</li>
-  </ul>
+<nav class="navbar">
+    <div class="nav-left">
+        <a href="#" class="nav-link" onclick="C.handlerMovie()">ACCUEIL</a>
+        
+        <div class="dropdown">
+            <a href="#" class="nav-link">CATÉGORIES ▼</a>
+            <ul id="dropdown-categories" class="dropdown-menu">
+                </ul>
+        </div>
+    </div>
+
+<div class="nav-right">
+    <div class="dropdown">
+        <div class="profile-trigger">
+            <img id="nav-avatar" src="./img/default-avatar.png" alt="Avatar">
+        </div>
+        <ul id="dropdown-profiles" class="dropdown-menu menu-right"></ul>
+    </div>
+</div>
 </nav>
