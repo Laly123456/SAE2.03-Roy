@@ -82,4 +82,10 @@ function addFavorite($id_movie, $id_profile) {
     $stmt = $cnx->prepare("REPLACE INTO SAE203_Favorite (id_movie, id_profile) VALUES (:id_m, :id_p)");
     return $stmt->execute([":id_m" => $id_movie, ":id_p" => $id_profile]);
 }
+
+function deleteFavorite($id_movie, $id_profile) {
+    $cnx = getConnexion();
+    $stmt = $cnx->prepare("DELETE FROM SAE203_Favorite WHERE id_movie = :id_m AND id_profile = :id_p");
+    return $stmt->execute([":id_m" => $id_movie, ":id_p" => $id_profile]);
+}
 ?>

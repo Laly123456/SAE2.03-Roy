@@ -17,31 +17,13 @@
     color: var(--color-text-main);
 }
 
-/* Bouton Retour stylisé */
-.btn-back {
-    background-color: var(--color-bg-card);
-    color: var(--color-text-main);
-    border: 0.06rem solid #333;
-    padding: 0.7rem 1.4rem;
-    border-radius: 0.4rem;
-    cursor: pointer;
-    margin-bottom: 2rem;
-    font-weight: 500;
-    transition: all 0.2s ease;
-}
 
-.btn-back:hover {
-    background-color: var(--color-btn-hover);
-    border-color: var(--color-text-muted);
-}
 
-/* --- Layout Vidéo --- */
 .movie-detail-video {
     width: 100%;
     margin-bottom: 2.5rem;
-    box-shadow: var(--shadow-soft);
     border-radius: var(--radius-main);
-    overflow: hidden; /* Pour que l'iframe respecte l'arrondi */
+    overflow: hidden; 
 }
 
 .movie-detail-video iframe {
@@ -53,10 +35,10 @@
 
 
 .movie-detail-info {
-    background: linear-gradient(180deg, var(--color-bg-card) 0%, #111 100%);
+    background: var(--bg);
     padding: 2.5rem;
     border-radius: var(--radius-main);
-    border-left: 0.3rem solid var(--color-accent); /* Petite touche de couleur sur le côté */
+    border-left: 0.3rem solid var(--color-accent); 
 }
 
 .movie-detail-info h1 {
@@ -92,4 +74,20 @@
     line-height: 1.8;
     font-size: 1.15rem;
     color: var(--color-text-muted);
+}
+
+
+.btn-fav{
+    background-color: var(--beige);
+    color:var(--color-black);
+    padding : 1rem;
+    margin: 1rem;
+    border-color: var(--color-black);
+}
+
+.btn-fav:hover{
+    background-color: var(--color-accent);
+    color: var(--color-white);
+    border-color: var(--color-accent);
+    opacity: 0.8;
 }

@@ -9,7 +9,7 @@ ini_set('display_startup_errors', 1);
 
 
 
-require("controller.php");
+require(__DIR__ . "/controller.php");
 
 if (isset($_REQUEST['todo'])) {
     header('Content-Type: application/json');
@@ -52,6 +52,10 @@ if (isset($_REQUEST['todo'])) {
         case 'readFavorites':
             $data = readFavoritesController();
             break;
+
+            case 'deleteFavorite':
+             $data = deleteFavoriteController();
+             break;
 
         default:
             http_response_code(400);

@@ -60,4 +60,11 @@ function readFavoritesController() {
 function saveProfileController() {
     return saveProfile($_REQUEST['id'] ?? null, $_REQUEST['name'], $_REQUEST['avatar'], $_REQUEST['age']);
 }
+
+function deleteFavoriteController() {
+    if (isset($_REQUEST['id_movie'], $_REQUEST['id_profile'])) {
+        return deleteFavorite($_REQUEST['id_movie'], $_REQUEST['id_profile']);
+    }
+    return false;
+}
 ?>
