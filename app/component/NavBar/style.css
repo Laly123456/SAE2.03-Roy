@@ -2,35 +2,31 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--color-black); 
+    background: #141414;
     padding: 0 2rem;
-    position: relative;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-
+    height: 3.75rem;
+    position: sticky;
+    top: 0;
+    z-index: 9999;
 }
+
 .nav-left {
     display: flex;
     align-items: center;
-    gap: 30px; 
+    gap: 1.8rem; 
 }
 
 .nav-link {
-    color: white;
+    color: var(--color-white);
     text-decoration: none;
     font-weight: bold;
     font-size: 0.9rem;
-    text-transform: uppercase;
-    transition: color 0.3s;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
-
-.nav-link:hover {
-    color: var(--jaune-clair); 
-}
-
 
 .dropdown {
     position: relative;
-    height: 60px; 
+    height: 3.75rem;
     display: flex;
     align-items: center;
 }
@@ -38,51 +34,42 @@
 .dropdown-menu {
     display: none;
     position: absolute;
-    top: 60px; 
+    top: 3.75rem;
     left: 0;
-    background-color: #1a1a1a;
-    min-width: 180px;
+    background: var(--color-black);
+    min-width: 10rem; 
     list-style: none;
-    padding: 0;
     margin: 0;
-    border: 1px solid #333;
-    box-shadow: 0px 8px 16px rgba(0,0,0,0.5);
-    z-index: 9999;
+    padding: 0.5rem 0;
+    border: 0.06rem solid var(--color-gray);
+    z-index: 10000;
 }
-
 
 .menu-right {
-    left: auto;
     right: 0;
+    left: auto;
 }
 
-.dropdown-menu li {
-    width: 100%;
+.dropdown:hover .dropdown-menu {
+    display: block;
 }
 
 .dropdown-menu li a {
+    color: var(--color-white);
+    padding: 0.75rem 1.25rem;
     display: block;
-    padding: 12px 20px; 
-    color: white;
     text-decoration: none;
     font-size: 0.85rem;
-    transition: all 0.2s ease-in-out;
 }
 
 .dropdown-menu li a:hover {
-    background-color: var(--jaune-clair);
-    color: #000; 
-    font-weight: bold;
-}
-
-.profile-trigger {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+    background: var(--jaune-clair);
+    color: var(--color-black);
 }
 
 #nav-avatar {
-    width: 35px;
-    height: 35px;
-    border-radius: 4px;
+    width: 2rem; 
+    height: 2rem;
+    border-radius: 1rem;
+    object-fit: cover;
 }

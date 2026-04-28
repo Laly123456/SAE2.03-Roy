@@ -8,19 +8,29 @@ let MovieForm = {};
 MovieForm.format = function () {
     return template;
 };
+MovieForm.fillCategories = function (categories) {
+    const select = document.querySelector("select[name='id_category']");
+    if (select) {
+        let html = "";
+        categories.forEach(cat => {
+            html += `<option value="${cat.id}">${cat.name}</option>`;
+        });
+        select.innerHTML = html;
+    }
+};
 
 MovieForm.listenSubmit = function () {
     const form = document.querySelector("#add-movie-form");
     if (form) {
         form.addEventListener("submit", async (event) => {
-            event.preventDefault(); // Stop le rechargement
+            event.preventDefault(); 
 
-            const formData = new FormData(form); // Récupère tout le formulaire
-            const result = await DataMovie.add(formData); // Envoie au PHP
+            const formData = new FormData(form); 
+            const result = await DataMovie.add(formData); 
 
             if (result) {
                 alert("Super ! Le film est dans phpMyAdmin.");
-                C.handlerMovie(); // On revient à l'accueil pour voir le film
+                C.handlerMovie();
             } else {
                 alert("Erreur lors de l'enregistrement.");
             }

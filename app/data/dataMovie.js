@@ -4,16 +4,17 @@ let HOST_URL = "..";//"http://mmi.unilim.fr/~????"; // CHANGE THIS TO MATCH YOUR
 let DataMovie = {};
 
 // Pour la grille d'accueil
-DataMovie.requestMovies = async function() {
-    let answer = await fetch(HOST_URL + "/server/script.php?todo=readmovies");
-    return await answer.json();
-}
+DataMovie.requestMovies = async function(age = 0) {
+    let res = await fetch("../server/script.php?todo=readmovies&age=" + age);
+    return await res.json();
+};
 
 // Pour remplir le menu déroulant
 DataMovie.requestAllCategories = async function() {
     let answer = await fetch(HOST_URL + "/server/script.php?todo=readMovieCategories");
     return await answer.json();
 }
+
 
 // Pour filtrer
 DataMovie.requestMoviesByCategory = async function(id) {
@@ -27,4 +28,14 @@ DataMovie.requestMovieById = async function(id) {
     return await answer.json();
 };
 
+DataMovie.addFavorite = async function(id_p, id_m) {
+    let url = "../server/script.php?todo=addFavorite&id_profile=" + id_p + "&id_movie=" + id_m;
+    let res = await fetch(url);
+    return await res.json();
+};
+
+DataMovie.requestFavorites = async function(id_p) {
+    let res = await fetch("../server/script.php?todo=readFavorites&id_profile=" + id_p);
+    return await res.json();
+};
 export { DataMovie };

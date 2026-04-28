@@ -1,66 +1,110 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
+
+<head>
     <title>SAE2.03 ADMIN</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/base.css" />
     <link rel="stylesheet" href="./css/variables.css" />
     <link rel="stylesheet" href="./component/MovieForm/style.css" />
-  </head>
+</head>
+
 <body>
-    <header id="header"></header> 
+    <header id="header"></header>
     <section id="log"></section>
     <section id="content"></section>
 
-   <script type="module">
-    import { Log } from "./component/Log/script.js";
-    import { DataMovie } from "./data/dataMovie.js";
-    import { DataProfile } from "./data/dataProfile.js";
-    import { MovieForm } from "./component/MovieForm/script.js"; 
-    import { ProfileForm } from "./component/ProfileForm/script.js";
-    import { AdminNav } from "./component/AdminNav/script.js";
+    <script type="module">
+        import { Log } from "./component/Log/script.js";
+        import { DataMovie } from "./data/dataMovie.js";
+        import { DataProfile } from "./data/dataProfile.js";
+        import { MovieForm } from "./component/MovieForm/script.js";
+        import { ProfileForm } from "./component/ProfileForm/script.js";
+        import { AdminNav } from "./component/AdminNav/script.js";
 
-    window.C = {};
-    window.V = {};
+        window.C = {};
+        window.V = {};
 
-// GESTION DES FILMS 
-    C.handlerShowMovieForm = function() {
-        document.querySelector("#content").innerHTML = MovieForm.format(); 
-        MovieForm.listenSubmit(); 
-    };
+        // GESTION DES FILMS 
+        C.handlerShowMovieForm = async function () {
+            document.querySelector("#content").innerHTML = MovieForm.format();
+            const categories = await DataMovie.getCategories();
+            MovieForm.fillCategories(categories);
+            MovieForm.listenSubmit();
+        };
 
-    C.handlerAddMovie = async function(formData) {
-        let res = await DataMovie.add(formData);
-        if (res) alert("Film ajouté !");
-    };
+        C.handlerAddMovie = async function (formData) {
+            let res = await DataMovie.add(formData);
+            if (res) alert("Film ajouté !");
+        };
 
-    //GESTION DES PROFILS
-    C.handlerShowProfileForm = function() {
-        document.querySelector("#content").innerHTML = ProfileForm.format(); 
-        ProfileForm.listenSubmit(); 
-    };
+        //GESTION DES PROFILS
+        C.handlerShowProfileForm = function () {
+            document.querySelector("#content").innerHTML = ProfileForm.format();
+            ProfileForm.listenSubmit();
 
-    C.handlerAddProfile = async function(formData) {
-        let res = await DataProfile.add(formData);
-        if (res) alert("Profil ajouté avec succès !");
-    };
+            const title = document.querySelector("#form-title");
+            const button = document.querySelector(".btn-submit");
 
-    // LOG 
-    C.handlerLog = function() {
-        let logSection = document.querySelector("#log");
-        if (logSection) {
-            logSection.innerHTML = Log.format();
-            if (Log.listen) Log.listen(); 
-        }
-    };
+            if (title) title.innerText = "Ajouter un profil utilisateur";
+            if (button) button.innerText = "Créer le profil";
+        };
 
-    C.start = async function () {
-        C.handlerLog();
-        document.querySelector("#header").innerHTML = AdminNav.format();
-        AdminNav.listen();
-        C.handlerShowProfileForm();
-    };
+        C.handlerAddProfile = async function (formData) {
+            let res = await DataProfile.add(formData);
 
-    C.start();
-</script>
+            if (res) {
+                if (formData.get('id')) {
+                    alert("Le profil a été modifié avec succès !");
+                } else {
+                    alert("Nouveau profil créé !");
+                }
+            }
+        };
+
+        // LOG 
+        C.handlerLog = function () {
+            let logSection = document.querySelector("#log");
+            if (logSection) {
+                logSection.innerHTML = Log.format();
+                if (Log.listen) Log.listen();
+            }
+        };
+
+        C.handlerEditProfile = async function (id) {
+            const profiles = await DataProfile.read();
+            const profile = profiles.find(p => p.id == id);
+
+            if (profile) {
+                C.handlerShowProfileForm();
+                ProfileForm.fill(profile);
+            }
+        };
+        C.handlerListProfilesAdmin = async function () {
+            const profiles = await DataProfile.read();
+            let html = "<h3>Liste des profils</h3><ul>";
+            profiles.forEach(p => {
+                html += `<li>
+        ${p.name} 
+        <button class="btn-modifier" onclick="C.handlerEditProfile(${p.id})">
+            Modifier
+        </button>
+    </li>`;
+            });
+            html += "</ul>";
+            document.querySelector("#content").innerHTML += html;
+        };
+
+
+
+        C.start = async function () {
+            C.handlerLog();
+            document.querySelector("#header").innerHTML = AdminNav.format();
+            AdminNav.listen();
+            C.handlerShowProfileForm();
+            await C.handlerListProfilesAdmin();
+        };
+
+        C.start();
+    </script>

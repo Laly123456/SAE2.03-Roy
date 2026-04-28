@@ -1,132 +1,95 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
   <title>SAE2.03 APP</title>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="./css/base.css" />
   <link rel="stylesheet" href="./component/Movie/style.css" />
   <link rel="stylesheet" href="./component/NavBar/style.css" />
   <link rel="stylesheet" href="./component/MovieDetail/style.css" />
-  
 </head>
-
 <body>
   <header id="header"></header>
   <section id="content"></section>
 
-  <script type="module">
+<script type="module">
     import { NavBar } from "./component/NavBar/script.js";
     import { Movie } from "./component/Movie/script.js";
     import { MovieDetail } from "./component/MovieDetail/script.js";
     import { DataMovie } from "./data/dataMovie.js";
     import { DataProfile } from "./data/dataProfile.js";
-    import { ProfilePicker } from "./component/ProfilePicker/script.js";
+    import { DataFavorite } from "./data/dataFavorite.js";
 
-   
     window.C = {};
+    window.V = {}; 
     window.currentProfile = null;
+    window.currentAge = 99;
 
-    C.handlerAbout = function () {
-      alert("MMI STREAM - SAE2.03");
+    C.handlerMovie = async function() {
+        const movies = await DataMovie.requestMovies(window.currentAge);
+        V.renderMovies(movies);
     };
 
-    // Affiche tous les films (Accueil)
-    C.handlerMovie = async function () {
-      const movies = await DataMovie.requestMovies();
-      V.renderMovies(movies);
+    C.handlerHome = function() {
+        C.handlerMovie();
     };
 
-    // Affiche les détails d'un film
-    C.handlerMovieDetail = async function (movieId) {
-      const movie = await DataMovie.requestMovieById(movieId);
-      V.renderMovieDetail(movie);
+    C.handlerMovieDetail = async function(id) {
+        const movie = await DataMovie.requestMovieById(id);
+        V.renderMovieDetail(movie);
     };
 
-    // Filtre par catégorie depuis le menu
-    C.handlerMovieCategory = async function (id_cat) {
-      const movies = await DataMovie.requestMoviesByCategory(id_cat);
-      V.renderMovies(movies);
+    C.handlerMovieCategory = async function(id) {
+        const movies = await DataMovie.requestMoviesByCategory(id, window.currentAge);
+        V.renderMovies(movies);
     };
 
-
-
-    //iteration 6 : les profils 
-C.handlerSelectProfile = function(id, name, avatar) {
-    window.currentProfile = id;
-
-    if (NavBar.activeProfile) {
-        NavBar.activeProfile(name, avatar);
-    }
-    
-    C.handlerMovie(); 
-};
-
-    // Démarrage de l'application
-C.start = async function () {
-    V.renderNavBar("C.handlerAbout()");
-
-    try {
-        const [profiles, categories] = await Promise.all([
-            DataProfile.read(),
-            DataMovie.requestAllCategories()
-        ]);
-
-        if (NavBar.fillNames) NavBar.fillNames(categories);
-        if (NavBar.fillProfiles) NavBar.fillProfiles(profiles);
-
-
-        C.handlerMovie(); 
-
-    } catch (error) {
-        console.error("Erreur :", error);
-        C.handlerMovie(); 
-    }
-};
-
-
-
-
-
-
-
-
-
-  
-    window.V = {};
-
-    V.renderNavBar = function (hAbout) {
-      document.querySelector("#header").innerHTML = NavBar.format(hAbout);
+    C.handlerToggleFavorite = async function(id_movie) {
+        let id = (typeof id_movie === 'object') ? id_movie.id : id_movie;
+        if (!window.currentProfile) return alert("Choisissez un profil !");
+        
+        const res = await DataFavorite.add(id, window.currentProfile);
+        if(res) alert("Ajouté aux favoris ! ");
     };
 
-    V.renderMovies = function (movies) {
-      let content = document.querySelector("#content");
-      if (!content) return;
-
-      content.innerHTML = ""; 
-      content.className = "movie-grid";
-
-      let html = "";
-      if (Array.isArray(movies) && movies.length > 0) {
-        for (let i = 0; i < movies.length; i++) {
-          html += Movie.format(movies[i]);
-        }
-      } else {
-        html = "<p class='empty-msg'>Aucun film trouvé.</p>";
-      }
-      content.innerHTML = html;
+    C.handlerSelectProfile = function(id, name, avatar, age) {
+        window.currentProfile = id;
+        window.currentAge = age; 
+        if (NavBar.activeProfile) NavBar.activeProfile(name, avatar);
+        C.handlerMovie();
     };
 
-    V.renderMovieDetail = function (movie) {
-      let content = document.querySelector("#content");
-      content.className = "movie-detail-view";
-      content.innerHTML = MovieDetail.format(movie);
+    C.handlerMyList = async function() {
+        if (!window.currentProfile) return alert("Choisissez un profil !");
+        const favs = await DataFavorite.read(window.currentProfile, window.currentAge);
+        V.renderMovies(favs);
     };
 
-    // Lancement effectif
+    C.start = async function() {
+        document.querySelector("#header").innerHTML = NavBar.format("");
+        const [profiles, cats] = await Promise.all([DataProfile.read(), DataMovie.requestAllCategories()]);
+        if (cats) NavBar.fillNames(cats);
+        if (profiles) NavBar.fillProfiles(profiles);
+        
+        const movies = await DataMovie.requestMovies(99); 
+        V.renderMovies(movies);
+    };
+
+    V.renderMovies = function(movies) {
+        let content = document.querySelector("#content");
+        content.className = "movie-grid";
+        content.innerHTML = (Array.isArray(movies) && movies.length > 0) 
+            ? movies.map(m => Movie.format(m)).join('') 
+            : "<p>Aucun film.</p>";
+    };
+
+    V.renderMovieDetail = function(movie) {
+        let content = document.querySelector("#content");
+        content.className = "movie-detail-view";
+        content.innerHTML = MovieDetail.format(movie);
+    };
+
     C.start();
-  </script>
+</script>
 </body>
-
 </html>

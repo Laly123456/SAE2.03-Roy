@@ -1,20 +1,10 @@
 <?php
 
 
-
-
-// Activer le rapport d'erreurs PHP
 error_reporting(E_ALL);
 
-// Forcer l'affichage des erreurs à l'écran
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-
-
-
-
-
-
 
 
 
@@ -24,7 +14,7 @@ require("controller.php");
 if (isset($_REQUEST['todo'])) {
     header('Content-Type: application/json');
     $todo = $_REQUEST['todo'];
-    $data = false; // Par défaut
+    $data = false; 
 
     switch($todo) {
         case 'readmovies':
@@ -51,9 +41,17 @@ if (isset($_REQUEST['todo'])) {
             $data = addProfileController();
             break;
 
-  case 'readProfiles':
-    $data = readProfilesController();
-    break;
+        case 'readProfiles':
+            $data = readProfilesController();
+            break;
+
+        case 'addFavorite':
+            $data = addFavoriteController();
+            break;
+
+        case 'readFavorites':
+            $data = readFavoritesController();
+            break;
 
         default:
             http_response_code(400);

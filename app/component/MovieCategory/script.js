@@ -17,10 +17,7 @@ MovieCategory.format = function (category) {
     } else {
         moviesHtml = "<p class='no-movie'>Aucun film dans cette catégorie.</p>";
     }
-
     html = html.replace("{{movie_list}}", moviesHtml);
     return html;
 };
-
-// VÉRIFIE BIEN CETTE LIGNE :
 export { MovieCategory };

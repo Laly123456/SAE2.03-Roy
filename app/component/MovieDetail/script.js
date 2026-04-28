@@ -6,7 +6,7 @@ let MovieDetail = {};
 MovieDetail.format = function (movie) {
     let res = template;
 
-    // Remplacement de chaque tag {{}} par la donnée correspondante
+ res = res.replaceAll("{{id}}", movie.id);
     res = res.replace("{{name}}", movie.name);
     res = res.replace("{{trailer}}", movie.trailer);
     res = res.replace("{{year}}", movie.year);
@@ -14,6 +14,7 @@ MovieDetail.format = function (movie) {
     res = res.replace("{{min_age}}", movie.min_age);
     res = res.replace("{{director}}", movie.director);
     res = res.replace("{{description}}", movie.description);
+
 
     return res;
 };

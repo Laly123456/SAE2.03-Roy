@@ -1,6 +1,12 @@
 <div class="form-container">
-    <h2>Ajouter un profil utilisateur</h2>
-    <form id="form-add-profile">
+<h2 id="form-title">Ajouter un profil utilisateur</h2>
+   
+
+
+<form id="form-add-profile">
+<input type="hidden" name="id" value="">
+
+
         <div class="form-group">
             <label>Nom du profil :</label>
             <input type="text" name="name" placeholder="Ex: Jean Dupont" required />
@@ -12,8 +18,8 @@
         </div>
 
         <div class="form-group">
-            <label>Âge minimum :</label>
-            <input type="number" name="min_age" value="0" min="0" />
+            <label>Âge:</label>
+            <input type="number" name="age" value="0" min="0" />
         </div>
 
         <button type="submit" class="btn-submit">Créer le profil</button>

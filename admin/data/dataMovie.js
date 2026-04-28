@@ -35,5 +35,10 @@ DataMovie.add = async function (formData) {
   return await answer.json();
 };
 
+DataMovie.getCategories = async function() {
+    let res = await fetch("../server/script.php?todo=getCategories");
+    return await res.json();
+};
+
 
 export { DataMovie };

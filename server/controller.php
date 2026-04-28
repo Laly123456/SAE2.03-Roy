@@ -1,9 +1,13 @@
 <?php
 require("model.php");
 
-/* ITÉRATION 4  */
 function readMoviesController() {
-    return getAllMovies();
+    $age = isset($_REQUEST['age']) ? $_REQUEST['age'] : 99;
+    return readMovies($age);
+}
+
+function getCategoriesController() {
+    return getCategories();
 }
 
 function readMovieCategoriesController() {
@@ -12,53 +16,48 @@ function readMovieCategoriesController() {
 
 function readMoviesByCategoryController() {
     if (isset($_REQUEST['id_cat'])) {
-        return getMoviesByCategoryId($_REQUEST['id_cat']);
+        $age = isset($_REQUEST['age']) ? $_REQUEST['age'] : 99;
+        return getMoviesByCategoryId($_REQUEST['id_cat'], $age);
     }
     return false;
 }
 
-/* ITÉRATION 2 */
 function readMovieDetailController(){
-    if(isset($_REQUEST['id'])){
-        return getMovieById($_REQUEST['id']);
-    }
-    return false;
+    return isset($_REQUEST['id']) ? getMovieById($_REQUEST['id']) : false;
 }
 
-/*ITÉRATION 3 */
 function addMovieController() {
-    if (isset($_REQUEST['name']) && !empty($_REQUEST['name']) && isset($_REQUEST['image'])) {
-        
+    if (isset($_REQUEST['name'], $_REQUEST['image'])) {
         return addMovie(
-            $_REQUEST['name'],
-            $_REQUEST['director'] ,
-            $_REQUEST['year'] ,
-            $_REQUEST['length'] ,
-            $_REQUEST['description'] ,
-            $_REQUEST['id_category'] ,
-            $_REQUEST['image'],
-            $_REQUEST['trailer'] ,
-            $_REQUEST['min_age'] 
+            $_REQUEST['name'], $_REQUEST['director'], $_REQUEST['year'],
+            $_REQUEST['length'], $_REQUEST['description'], $_REQUEST['id_category'],
+            $_REQUEST['image'], $_REQUEST['trailer'], $_REQUEST['min_age']
         );
     }
     return false; 
 }
 
-//iteration 5
-
 function addProfileController() {
-    if (isset($_REQUEST['name']) && !empty($_REQUEST['name'])) {
-        return addProfile(
-            $_REQUEST['name'],
-            $_REQUEST['avatar'] ?? "",
-            $_REQUEST['min_age'] ?? 0
-        );
+    return addProfile($_REQUEST['name'], $_REQUEST['avatar'], $_REQUEST['age'], $_REQUEST['id'] ?? null);
+}
+
+function readProfilesController() {
+    return readProfiles();
+}
+
+function addFavoriteController() {
+    if (isset($_REQUEST['id_movie'], $_REQUEST['id_profile'])) {
+        return addFavorite($_REQUEST['id_movie'], $_REQUEST['id_profile']);
     }
     return false;
 }
 
-//iteration 6 
-function readProfilesController() {
-    return readProfiles();
+function readFavoritesController() {
+    $age = isset($_REQUEST['age']) ? $_REQUEST['age'] : 99;
+    return getFavoritesByProfile($_REQUEST['id_profile'], $age);
+}
+
+function saveProfileController() {
+    return saveProfile($_REQUEST['id'] ?? null, $_REQUEST['name'], $_REQUEST['avatar'], $_REQUEST['age']);
 }
 ?>
