@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="./component/Movie/style.css" />
   <link rel="stylesheet" href="./component/NavBar/style.css" />
   <link rel="stylesheet" href="./component/MovieDetail/style.css" />
+  <link rel="stylesheet" href="./component/Featured/style.css" />
 </head>
 <body>
   <header id="header"></header>
@@ -19,16 +20,40 @@
     import { DataMovie } from "./data/dataMovie.js";
     import { DataProfile } from "./data/dataProfile.js";
     import { DataFavorite } from "./data/dataFavorite.js";
+    import { Featured } from "./component/Featured/script.js";
+    import { Stats } from "./component/Stats/script.js";
 
-    window.C = {};
-    window.V = {}; 
+window.C = window.C || {}; 
+window.V = window.V || {};
     window.currentProfile = null;
     window.currentAge = 99;
 
-    C.handlerMovie = async function() {
-        const movies = await DataMovie.requestMovies(window.currentAge);
-        V.renderMovies(movies);
-    };
+    // C.handlerMovie = async function() {
+    //     const movies = await DataMovie.requestMovies(window.currentAge);
+    //     V.renderMovies(movies);
+    // };
+C.handlerMovie = async function() {
+    const featuredMovies = await DataMovie.requestFeaturedMovies(window.currentAge);
+    let content = document.querySelector("#content");
+    content.className = "main-home-view"; 
+    
+    let html = "";
+    if (featuredMovies && featuredMovies.length > 0) {
+        html += Featured.format(featuredMovies); 
+    } else {
+        html += "<p class='empty-featured'>Aucun film mis en avant pour votre profil.</p>";
+    }
+    const movies = await DataMovie.requestMovies(window.currentAge);
+    html += "<div class='movie-grid'>";
+    for (let m of movies) {
+        html += Movie.format(m);
+    }
+    html += "</div>";
+
+    content.innerHTML = html;
+};
+
+
 
     C.handlerHome = function() {
         C.handlerMovie();
@@ -81,16 +106,58 @@ C.handlerMyList = async function() {
         document.querySelector("#content").innerHTML = "<p>Votre liste de favoris est vide.</p>";
     }
 };
+C.handlerStats = async function() {
+    const data = await DataMovie.requestStats(); 
+    let content = document.querySelector("#content");
+    content.className = "stats-view";
+    content.innerHTML = Stats.format(data);
+};
 
-    C.start = async function() {
-        document.querySelector("#header").innerHTML = NavBar.format("");
-        const [profiles, cats] = await Promise.all([DataProfile.read(), DataMovie.requestAllCategories()]);
-        if (cats) NavBar.fillNames(cats);
-        if (profiles) NavBar.fillProfiles(profiles);
-        
-        const movies = await DataMovie.requestMovies(99); 
-        V.renderMovies(movies);
-    };
+
+C.handlerSearch = async function() {
+    let q = document.querySelector("#mots_cles").value;
+    if (q == "") {
+        C.handlerMovie();
+        return;
+    }
+    let movies = await DataMovie.search(q, window.currentAge);
+    let content = document.querySelector("#content");
+    content.className = "movie-grid";
+
+    let html = "";
+    if (movies.length > 0) {
+        for (let i = 0; i < movies.length; i++) {
+            html = html + Movie.format(movies[i]);
+        }
+    } else {
+        html = "<p>Aucun résultat pour votre recherche.</p>";
+    }
+    content.innerHTML = html;
+};
+C.checkEnter = function() {
+    if (event.key == "Enter") {
+        C.handlerSearch();
+    }
+};
+
+
+
+C.start = async function() {
+    document.querySelector("#header").innerHTML = NavBar.format("");
+    
+    const [profiles, cats] = await Promise.all([
+        DataProfile.read(), 
+        DataMovie.requestAllCategories()
+    ]);
+    
+    if (cats) NavBar.fillNames(cats);
+    if (profiles) NavBar.fillProfiles(profiles);
+    C.handlerMovie(); 
+};
+
+
+
+
 
     V.renderMovies = function(movies) {
         let content = document.querySelector("#content");
@@ -105,6 +172,11 @@ V.renderMovieDetail = function(movie, isFav) {
     content.className = "movie-detail-view";
     content.innerHTML = MovieDetail.format(movie, isFav); 
 };
+
+
+
+
+window.V = V;
 
     C.start();
 </script>

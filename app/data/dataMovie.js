@@ -38,4 +38,22 @@ DataMovie.requestFavorites = async function(id_p) {
     let res = await fetch("../server/script.php?todo=readFavorites&id_profile=" + id_p);
     return await res.json();
 };
+
+
+DataMovie.requestFeaturedMovies = async function(age) {
+    let url = `${HOST_URL}/server/script.php?todo=getFeatured&age=${age}`;
+    let answer = await fetch(url);
+    return await answer.json();
+};
+
+DataMovie.requestStats = async function() {
+    let res = await fetch("../server/script.php?todo=getStats");
+    return res.ok ? res.json() : null;
+};
+
+DataMovie.search = async function(q, age) {
+    let response = await fetch("../server/script.php?todo=search&q=" + q + "&age=" + age);
+    return await response.json();
+};
+
 export { DataMovie };

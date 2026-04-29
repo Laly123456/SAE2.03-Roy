@@ -5,8 +5,7 @@
     padding: 2rem;
     background-color: var(--fond-formulaire);
     font-family: sans-serif;
-    color: var(--texte-noir);
-    border: none;
+    color: var(--color-white);
 
 }
 .movie-form h2 {
@@ -29,17 +28,13 @@
 label { 
     font-weight: bold; 
     margin-bottom: 0.5rem; 
-    color: var(--texte-noir);
+    color: var(--color-white);
 }
 
-input, textarea, select {
-    padding: 0.75rem;
-    font-size: 1rem;
-    background-color: var(--texte-blanc);
-}
 
 .btn-submit {
-    background-color: #dedb5b;
+    background-color: var(--jaune-clair)
+    ;
     color: var(--color-black);
     padding: 1rem;
     border: none;
@@ -52,5 +47,14 @@ input, textarea, select {
 }
 
 .btn-submit:hover {
-    background-color: var(--jaune);
+    background-color: var(--jaune-fonce);
+}
+
+input, textarea, select {
+    padding: 0.75rem;
+    font-size: 1rem;
+    background-color: var(--color-white);
+    border: 2px solid var(--bordure-grise); 
+    border-radius: 0.5rem; 
+    transition: border-color 0.3s;
 }

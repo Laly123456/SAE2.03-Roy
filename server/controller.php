@@ -67,4 +67,12 @@ function deleteFavoriteController() {
     }
     return false;
 }
+function getFeaturedMoviesController() {
+    $age = isset($_REQUEST['age']) ? $_REQUEST['age'] : 99;
+    return getFeaturedMovies($age);
+}
+
+function getStatsController() {
+    return getStats();
+}
 ?>

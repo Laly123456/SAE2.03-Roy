@@ -15,6 +15,7 @@ if (isset($_REQUEST['todo'])) {
     header('Content-Type: application/json');
     $todo = $_REQUEST['todo'];
     $data = false; 
+    $age = isset($_REQUEST['age']) ? $_REQUEST['age'] : 99;
 
     switch($todo) {
         case 'readmovies':
@@ -56,6 +57,18 @@ if (isset($_REQUEST['todo'])) {
             case 'deleteFavorite':
              $data = deleteFavoriteController();
              break;
+
+            case 'getFeatured':
+              $data = getFeaturedMovies($age); 
+              break; 
+
+            case 'getStats': 
+              $data = getStatsController(); 
+              break;
+
+            case 'search':
+              $data = searchMovies($_REQUEST['q'] ?? '', $age);
+              break;
 
         default:
             http_response_code(400);

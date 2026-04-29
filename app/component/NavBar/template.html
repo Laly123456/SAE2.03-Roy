@@ -2,6 +2,7 @@
     <div class="nav-left">
         <a href="#" class="nav-link" onclick="C.handlerMovie()">Accueil</a>
         <a href="#" class="nav-link" onclick="C.handlerMyList()">Ma liste</a>
+        <a href="#" class="nav-link" onclick="C.handlerStats()">Statistiques</a>
         
         <div class="dropdown">
             <a href="#" class="nav-link">Catégories</a>
@@ -9,6 +10,8 @@
                 </ul>
         </div>
     </div>
+    
+<input class="search" type="text" id="mots_cles" placeholder="Chercher..." onkeydown="C.checkEnter()">
 
 <div class="nav-right">
     <div class="dropdown">

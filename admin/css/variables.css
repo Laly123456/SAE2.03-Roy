@@ -20,7 +20,9 @@
 
 
 /* Couleurs simples FORMULAIRE */
-    --fond-formulaire: #f6f5ed;
+    /* --fond-formulaire: #f6f5ed;   */
+    --fond-formulaire: #656261; 
+                     
     --fond-bouton: #ec698f;
     --fond-bouton-survol: #c23350;
     --texte-noir: #1a1a1a;
@@ -29,5 +31,6 @@
     --ombre-douce: rgba(0, 0, 0, 0.15);
         --jaune : #ffee32;
     --jaune-clair : #FFFD6D;
+        --jaune-fonce : #9c9b32;
 
 }

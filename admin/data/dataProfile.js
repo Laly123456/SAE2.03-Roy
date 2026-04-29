@@ -1,24 +1,20 @@
-let HOST_URL = ".."; 
+let URL = "../server/script.php?todo=";
 
-let DataProfile = {}; 
+let DataProfile = {};
 
 DataProfile.read = async function () {
-    let answer = await fetch(HOST_URL + "/server/script.php?todo=readProfiles");
-    return await answer.json();
+    let res = await fetch(URL + "readProfiles");
+    return await res.json();
 };
 
 DataProfile.add = async function(formData) {
-    const id = formData.get('id'); 
-    const name = formData.get('name');
-    const avatar = formData.get('avatar');
-    const age = formData.get('age');
+    let p = "addProfile";
+    p += "&id=" + formData.get('id');
+    p += "&name=" + formData.get('name');
+    p += "&avatar=" + formData.get('avatar');
+    p += "&age=" + formData.get('age');
 
-    let url = `${HOST_URL}/server/script.php?todo=addProfile&name=${name}&avatar=${avatar}&age=${age}`;
-    if (id) {
-        url += `&id=${id}`;
-    }
-
-    let res = await fetch(url);
+    let res = await fetch("../server/script.php?todo=" + p);
     return await res.json();
 };
 

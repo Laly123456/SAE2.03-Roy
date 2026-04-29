@@ -88,4 +88,38 @@ function deleteFavorite($id_movie, $id_profile) {
     $stmt = $cnx->prepare("DELETE FROM SAE203_Favorite WHERE id_movie = :id_m AND id_profile = :id_p");
     return $stmt->execute([":id_m" => $id_movie, ":id_p" => $id_profile]);
 }
+
+function getFeaturedMovies($age_max = 99) {
+    $cnx = getConnexion(); 
+    $stmt = $cnx->prepare("SELECT * FROM SAE203_Movie WHERE is_featured > 0 AND min_age <= :age ORDER BY is_featured ASC");
+    $stmt->execute([':age' => $age_max]);
+    
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
+}
+
+
+function getStats() {
+    $cnx = getConnexion(); 
+    $stats = [];
+    // Nombre total de films
+    $res = $cnx->query("SELECT COUNT(*) as total FROM SAE203_Movie");
+    $stats['total_films'] = $res->fetch(PDO::FETCH_ASSOC)['total'];
+    // Nombre total de profils
+    $res = $cnx->query("SELECT COUNT(*) as total FROM SAE203_Profile");
+    $stats['total_profiles'] = $res->fetch(PDO::FETCH_ASSOC)['total'];
+    // Catégorie la plus populaire
+    $res = $cnx->query("SELECT c.name FROM SAE203_Favorite f 
+                        JOIN SAE203_Movie m ON f.id_movie = m.id 
+                        JOIN SAE203_Category c ON m.id_category = c.id 
+                        GROUP BY c.id ORDER BY COUNT(*) DESC LIMIT 1");
+    $stats['popular_cat'] = $res->fetch(PDO::FETCH_ASSOC)['name'] ?? "Aucune";
+
+    return $stats;
+}
+
+function searchMovies($q, $age = 99) {
+    $stmt = getConnexion()->prepare("SELECT * FROM SAE203_Movie WHERE name LIKE ? AND min_age <= ?");
+    $stmt->execute(["%$q%", $age]);
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
+}
 ?>
