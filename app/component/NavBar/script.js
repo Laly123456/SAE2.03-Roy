@@ -4,7 +4,7 @@ let template = await templateFile.text();
 let NavBar = {};
 
 NavBar.format = function (hAbout) {
-    return template; // Simplifié car hAbout n'est pas utilisé ici
+    return template; 
 };
 
 NavBar.fillNames = function (categories) {
