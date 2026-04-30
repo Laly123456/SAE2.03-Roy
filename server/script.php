@@ -54,19 +54,19 @@ if (isset($_REQUEST['todo'])) {
             $data = readFavoritesController();
             break;
 
-            case 'deleteFavorite':
+        case 'deleteFavorite':
              $data = deleteFavoriteController();
              break;
 
-            case 'getFeatured':
+        case 'getFeatured':
               $data = getFeaturedMovies($age); 
               break; 
 
-            case 'getStats': 
+        case 'getStats': 
               $data = getStatsController(); 
               break;
 
-            case 'search':
+        case 'search':
               $data = searchMovies($_REQUEST['q'] ?? '', $age);
               break;
 

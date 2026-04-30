@@ -156,16 +156,24 @@ C.start = async function() {
 };
 
 
-
-
-
     V.renderMovies = function(movies) {
         let content = document.querySelector("#content");
         content.className = "movie-grid";
-        content.innerHTML = (Array.isArray(movies) && movies.length > 0) 
-            ? movies.map(m => Movie.format(m)).join('') 
-            : "<p>Aucun film.</p>";
+            if (Array.isArray(movies) && movies.length > 0) {
+                let html = "";
+                for (let i = 0; i < movies.length; i++) {
+                    html += Movie.format(movies[i]);
+                }
+                content.innerHTML = html;
+            } else {
+                content.innerHTML = "<p>Aucun film.</p>";
+            }
     };
+
+
+
+
+
 
 V.renderMovieDetail = function(movie, isFav) {
     let content = document.querySelector("#content");

@@ -1,8 +1,12 @@
 <?php
 define("HOST", "localhost");
-define("DBNAME", "roy80");
-define("DBLOGIN", "roy80");
-define("DBPWD", "roy80");
+define("DBNAME", "SAE203");
+define("DBLOGIN", "laly");
+define("DBPWD", "Laly08122007");
+// define("HOST", "localhost");
+// define("DBNAME", "SAE203");
+// define("DBLOGIN", "laly");
+// define("DBPWD", "Laly08122007");
 
 function getConnexion() {
     return new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD, [PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"]);
@@ -30,15 +34,24 @@ function getMoviesByCategoryId($id_cat, $age_max = 99) {
 }
 
 function getCategories() {
-    return getConnexion()->query("SELECT * FROM SAE203_Category ORDER BY name ASC")->fetchAll(PDO::FETCH_ASSOC);
+    $cnx = getConnexion();
+    $stmt = $cnx->prepare("SELECT * FROM SAE203_Category");
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 function getAllCategories() {
-    return getConnexion()->query("SELECT id, name FROM SAE203_Category")->fetchAll(PDO::FETCH_OBJ);
+    $cnx = getConnexion();
+    $stmt = $cnx->prepare("SELECT id, name FROM SAE203_Category");
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
 }
 
 function readProfiles() {
-    return getConnexion()->query("SELECT * FROM SAE203_Profile")->fetchAll(PDO::FETCH_OBJ);
+    $cnx = getConnexion();
+    $stmt = $cnx->prepare("SELECT * FROM SAE203_Profile");
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
 }
 
 function addProfile($name, $avatar, $age, $id = null) {
@@ -101,13 +114,10 @@ function getFeaturedMovies($age_max = 99) {
 function getStats() {
     $cnx = getConnexion(); 
     $stats = [];
-    // Nombre total de films
     $res = $cnx->query("SELECT COUNT(*) as total FROM SAE203_Movie");
     $stats['total_films'] = $res->fetch(PDO::FETCH_ASSOC)['total'];
-    // Nombre total de profils
     $res = $cnx->query("SELECT COUNT(*) as total FROM SAE203_Profile");
     $stats['total_profiles'] = $res->fetch(PDO::FETCH_ASSOC)['total'];
-    // Catégorie la plus populaire
     $res = $cnx->query("SELECT c.name FROM SAE203_Favorite f 
                         JOIN SAE203_Movie m ON f.id_movie = m.id 
                         JOIN SAE203_Category c ON m.id_category = c.id 
