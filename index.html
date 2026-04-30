@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAE2.03</title>
+    <link rel="stylesheet" href="component/landing/style.css">
+</head>
+<body>
+    <div id="landing"></div>
+
+    <script type="module">
+        import { landing } from "./component/landing/script.js";
+
+        async function display() {
+            const container = document.querySelector('#landing');
+            if (container) {
+                container.innerHTML = await landing.format();
+            }
+        }
+
+        display();
+    </script>
+
+</body>
+</html>

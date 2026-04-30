@@ -1,24 +1,23 @@
-<nav class="navbar">
-    <div class="nav-left">
-        <a href="#" class="nav-link" onclick="C.handlerMovie()">Accueil</a>
-        <a href="#" class="nav-link" onclick="C.handlerMyList()">Ma liste</a>
-        <a href="#" class="nav-link" onclick="C.handlerStats()">Statistiques</a>
+<nav class="main-nav">
+    <div class="main-nav__group">
+        <a href="#" class="main-nav__link" onclick="C.handlerMovie()">Accueil</a>
+        <a href="#" class="main-nav__link" onclick="C.handlerMyList()">Ma liste</a>
+        <a href="#" class="main-nav__link" onclick="C.handlerStats()">Stats</a>
         
-        <div class="dropdown">
-            <a href="#" class="nav-link">Catégories</a>
-            <ul id="dropdown-categories" class="dropdown-menu">
-                </ul>
+        <div class="nav-dropdown">
+            <a href="#" class="main-nav__link">Catégories</a>
+            <ul id="app-nav-categories" class="nav-dropdown__menu"></ul>
         </div>
     </div>
     
-<input class="search" type="text" id="mots_cles" placeholder="Chercher..." onkeydown="C.checkEnter()">
-
-<div class="nav-right">
-    <div class="dropdown">
-        <div class="profile-trigger">
-            <img id="nav-avatar" src="../server/images/Profile/profil.jpg" alt="Avatar">
-        </div>
-        <ul id="dropdown-profiles" class="dropdown-menu menu-right"></ul>
+    <div class="nav-search">
+        <input class="nav-search__input" type="text" id="mots_cles" placeholder="Rechercher un film..." onkeydown="C.checkEnter()">
     </div>
-</div>
+
+    <div class="main-nav__group">
+        <div class="nav-dropdown">
+            <img id="nav-avatar-img" class="nav-user__avatar" src="../server/images/Profile/profil.jpg" alt="User">
+            <ul id="app-nav-profiles" class="nav-dropdown__menu nav-dropdown__menu--right"></ul>
+        </div>
+    </div>
 </nav>

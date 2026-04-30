@@ -26,7 +26,7 @@ DataMovie.requestMovieById = async function(id) {
     return await answer.json();
 };
 
-// 5.  Pour ajouter un film via le formulaire
+// 5.  Pour ajouter un film par le formulaire
 DataMovie.add = async function (formData) {
   let answer = await fetch(HOST_URL + "/server/script.php?todo=addmovie", {
     method: "POST",
@@ -39,6 +39,19 @@ DataMovie.getCategories = async function() {
     let res = await fetch("../server/script.php?todo=readMovieCategories"); 
     return await res.json();
 };
+
+
+DataMovie.search = async function(q, age) {
+    let response = await fetch("../server/script.php?todo=search&q=" + q + "&age=" + age);
+    return await response.json();
+};
+
+DataMovie.toggleFeatured = async function(id, status) {
+    let response = await fetch("../server/script.php?todo=setPromo&id=" + id + "&status=" + status);
+    return await response.json();
+};
+
+
 
 
 export { DataMovie };

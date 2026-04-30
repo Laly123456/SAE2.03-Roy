@@ -35,14 +35,13 @@ window.V = window.V || {};
 C.handlerMovie = async function() {
     const featuredMovies = await DataMovie.requestFeaturedMovies(window.currentAge);
     let content = document.querySelector("#content");
-    content.className = "main-home-view"; 
+    content.className = "view-home"; 
     
     let html = "";
     if (featuredMovies && featuredMovies.length > 0) {
         html += Featured.format(featuredMovies); 
-    } else {
-        html += "<p class='empty-featured'>Aucun film mis en avant pour votre profil.</p>";
     }
+
     const movies = await DataMovie.requestMovies(window.currentAge);
     html += "<div class='movie-grid'>";
     for (let m of movies) {

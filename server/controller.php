@@ -2,12 +2,7 @@
 require("model.php");
 
 function readMoviesController() {
-    $age = isset($_REQUEST['age']) ? $_REQUEST['age'] : 99;
-    return readMovies($age);
-}
-
-function getCategoriesController() {
-    return getCategories();
+    return readMovies($_REQUEST['age'] ?? 99);
 }
 
 function readMovieCategoriesController() {
@@ -16,8 +11,7 @@ function readMovieCategoriesController() {
 
 function readMoviesByCategoryController() {
     if (isset($_REQUEST['id_cat'])) {
-        $age = isset($_REQUEST['age']) ? $_REQUEST['age'] : 99;
-        return getMoviesByCategoryId($_REQUEST['id_cat'], $age);
+        return getMoviesByCategoryId($_REQUEST['id_cat'], $_REQUEST['age'] ?? 99);
     }
     return false;
 }
@@ -27,7 +21,7 @@ function readMovieDetailController(){
 }
 
 function addMovieController() {
-    if (isset($_REQUEST['name'], $_REQUEST['image'])) {
+    if (isset($_REQUEST['name'])) {
         return addMovie(
             $_REQUEST['name'], $_REQUEST['director'], $_REQUEST['year'],
             $_REQUEST['length'], $_REQUEST['description'], $_REQUEST['id_category'],
@@ -37,8 +31,8 @@ function addMovieController() {
     return false; 
 }
 
-function addProfileController() {
-    return addProfile($_REQUEST['name'], $_REQUEST['avatar'], $_REQUEST['age'], $_REQUEST['id'] ?? null);
+function saveProfileController() {
+    return saveProfile($_REQUEST['id'] ?? null, $_REQUEST['name'], $_REQUEST['avatar'], $_REQUEST['age']);
 }
 
 function readProfilesController() {
@@ -46,33 +40,33 @@ function readProfilesController() {
 }
 
 function addFavoriteController() {
-    if (isset($_REQUEST['id_movie'], $_REQUEST['id_profile'])) {
-        return addFavorite($_REQUEST['id_movie'], $_REQUEST['id_profile']);
-    }
-    return false;
-}
-
-function readFavoritesController() {
-    $age = isset($_REQUEST['age']) ? $_REQUEST['age'] : 99;
-    return getFavoritesByProfile($_REQUEST['id_profile'], $age);
-}
-
-function saveProfileController() {
-    return saveProfile($_REQUEST['id'] ?? null, $_REQUEST['name'], $_REQUEST['avatar'], $_REQUEST['age']);
+    return addFavorite($_REQUEST['id_movie'], $_REQUEST['id_profile']);
 }
 
 function deleteFavoriteController() {
-    if (isset($_REQUEST['id_movie'], $_REQUEST['id_profile'])) {
-        return deleteFavorite($_REQUEST['id_movie'], $_REQUEST['id_profile']);
-    }
-    return false;
+    return deleteFavorite($_REQUEST['id_movie'], $_REQUEST['id_profile']);
 }
+
+function readFavoritesController() {
+    return getFavoritesByProfile($_REQUEST['id_profile'], $_REQUEST['age'] ?? 99);
+}
+
 function getFeaturedMoviesController() {
-    $age = isset($_REQUEST['age']) ? $_REQUEST['age'] : 99;
-    return getFeaturedMovies($age);
+    return getFeaturedMovies($_REQUEST['age'] ?? 99);
 }
 
 function getStatsController() {
     return getStats();
+
+function searchMoviesController() {
+    $q = $_REQUEST['q'] ?? "";
+    $age = $_REQUEST['age'] ?? 99;
+    return searchMovies($q, $age); 
 }
-?>
+
+function setPromoController() {
+    $id = $_REQUEST['id'] ?? 0;
+    $status = $_REQUEST['status'] ?? 0;
+    return set_promo($id, $status);
+}
+}

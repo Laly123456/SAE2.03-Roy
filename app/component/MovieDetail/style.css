@@ -1,93 +1,62 @@
-:root {
-    /* Palette de couleurs */
-    --color-bg-dark: #141414;
-    --color-bg-card: #1f1f1f;
-    --color-text-main: #ffffff;
-    --color-text-muted: #b3b3b3;
-    --color-accent: #f26a8d; 
-    --color-btn-hover: #333333;
-    
-    --radius-main: 0.8rem;
-    --shadow-soft: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.5);
-}
-
 .movie-detail-container {
     margin: 0 auto;
-    padding: 2.5rem;
-    color: var(--color-text-main);
+    padding: 8rem 4% 4rem;
+    max-width: 1200px;
+    color: var(--color-white);
 }
-
-
-
 .movie-detail-video {
     width: 100%;
     margin-bottom: 2.5rem;
     border-radius: var(--radius-main);
     overflow: hidden; 
 }
-
 .movie-detail-video iframe {
     width: 100%;
     aspect-ratio: 16 / 9;
     border: none;
-    display: block;
 }
-
-
 .movie-detail-info {
-    background: var(--bg);
-    padding: 2.5rem;
+    background: var(--color-black);
+    padding: 3rem;
     border-radius: var(--radius-main);
     border-left: 0.3rem solid var(--color-accent); 
 }
-
 .movie-detail-info h1 {
-    font-size: 3rem;
+    font-size: 3.5rem;
     margin: 0;
-    letter-spacing: -0.05rem;
+    line-height: 1.1;
 }
-
 .movie-meta {
     color: var(--color-text-muted);
     font-size: 1.2rem;
-    margin: 1rem 0 2rem 0;
+    margin: 1rem 0;
     display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
 }
-
-.movie-meta span:not(:last-child)::after {
-    content: "|";
-    margin-left: 1rem;
-    opacity: 0.5;
-}
-
 .description-title {
     color: var(--color-accent);
     text-transform: uppercase;
     font-size: 0.9rem;
     font-weight: bold;
-    margin-bottom: 0.5rem;
     display: block;
 }
-
 .description-text {
     line-height: 1.8;
-    font-size: 1.15rem;
+    font-size: 1.2rem;
     color: var(--color-text-muted);
 }
-
-
-.btn-fav{
-    background-color: var(--beige);
-    color:var(--color-black);
-    padding : 1rem;
-    margin: 1rem;
-    border-color: var(--color-black);
+.btn-fav {
+    background: var(--jaune-fonce);
+    color: var(--color-black);
+    padding: 1rem 2rem;
+    margin-top: 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    cursor: pointer;
 }
-
-.btn-fav:hover{
-    background-color: var(--color-accent);
+.btn-fav:hover {
+    background: var(--vert);
     color: var(--color-white);
-    border-color: var(--color-accent);
-    opacity: 0.8;
 }

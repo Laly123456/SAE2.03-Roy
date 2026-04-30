@@ -20,8 +20,30 @@
     import { MovieForm } from "./component/MovieForm/script.js";
     import { ProfileForm } from "./component/ProfileForm/script.js";
     import { ProfileList } from "./component/ProfileList/script.js";
+    import { Search } from "./component/Search/script.js";
 
     window.C = {};
+
+  C.checkEnter = function(e) {
+    let event = e || window.event;
+    if (event.key === "Enter") {
+        C.runSearch();
+    }
+};
+
+C.runSearch = async function() {
+    let input = document.getElementById("mots_cles");
+    if (!input) return; 
+    
+    let q = input.value;
+    let movies = await DataMovie.search(q, 99);
+    Search.renderResults(movies);
+};
+C.toggleFeature = async function(id, current) {
+    let next = current > 0 ? 0 : 1;
+    await DataMovie.toggleFeatured(id, next); 
+    C.runSearch(); 
+};
 
     C.handlerAddMovie = async function (formData) {
         let res = await DataMovie.add(formData);
@@ -41,12 +63,30 @@
         window.scrollTo(0,0);
     };
 
+
+    C.checkEnter = function(e) {
+        if (e.key === "Enter") C.runSearch();
+    };
+
+    C.runSearch = async function() {
+        let q = document.getElementById("mots_cles").value;
+        let movies = await DataMovie.search(q, 99);
+        Search.renderResults(movies);
+    };
+
+    C.toggleFeature = async function(id, current) {
+        let next = current > 0 ? 0 : 1;
+        await DataMovie.toggleFeatured(id, next); 
+        C.runSearch(); 
+    };
+
 C.start = async function () {
     let profiles = await DataProfile.read();
     let cats = await DataMovie.requestAllCategories();
     let content = document.getElementById("content");
     content.innerHTML = ""; 
 
+    content.innerHTML += Search.format();
     content.innerHTML += ProfileForm.format();
     
     content.innerHTML += ProfileList.format(profiles);

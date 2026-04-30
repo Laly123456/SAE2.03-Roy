@@ -1,11 +1,9 @@
-.movie-grid {
+ .movie-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
-    padding: 80px 4% 20px 4%; /* 80px pour pas que la navbar cache les films */
+    padding: 80px 4% 20px 4%; 
 }
-
-
 .movie-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
@@ -13,12 +11,11 @@
     padding: 2rem;
 }
 
-/* 2. Le style de la carte */
 .movie-card {
     position: relative;
     border-radius: 0.8rem;
     overflow: hidden;
-    aspect-ratio: 2/3; /* Format affiche de film */
+    aspect-ratio: 2/3; 
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     background-color: #222;
     transition: transform 0.3s ease;
@@ -27,8 +24,6 @@
 .movie-card:hover {
     transform: scale(1.03);
 }
-
-/* 3. L'image */
 .movie-img {
     width: 100%;
     height: 100%;
@@ -36,17 +31,17 @@
     display: block;
 }
 
-/* 4. Le titre en bas à gauche sur l'image */
 .movie-info {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
     padding: 1.5rem 1rem 0.8rem 1rem;
-    /* Dégradé noir pour que le texte blanc soit lisible */
     background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
     box-sizing: border-box;
 }
+
+
 
 .movie-title {
     color: white;
