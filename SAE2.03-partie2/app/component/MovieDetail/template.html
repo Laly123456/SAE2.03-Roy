@@ -1,0 +1,32 @@
+<div class="movie-page">
+    <div class="banner">
+        <img src="../server/images/banner/{{image}}" alt="{{name}}">
+        <div class="overlay"></div>
+    </div>
+
+    <div class="content">
+        <div class="head">
+            <div class="meta">
+                <span>Film</span> • <span>{{year}}</span> • <span>{{length}} min</span>
+            </div>
+            <h1>{{name}}</h1>
+            <p class="desc">{{description}}</p>
+        </div>
+
+        <button class="btn-fav" onclick="window.C.handlerToggleFavorite({{id}})">
+            {{fav_text}}
+        </button>
+
+        <div class="video-area">
+            <span class="label">Bande-annonce</span>
+            <div class="player">
+                <iframe src="{{trailer}}" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <div class="infos">
+            <p><strong>Réalisateur :</strong> {{director}}</p>
+            <p><strong>Âge :</strong> {{min_age}}+</p>
+        </div>
+    </div>
+</div>

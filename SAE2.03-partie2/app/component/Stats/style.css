@@ -1,0 +1,60 @@
+:root {
+    --fond: #000000;
+    --texte: #ffffff;
+    --texte-gris: #bbbbbb;
+    --bouton-fond: #ffffff;
+    --bouton-texte: #000000;
+    --beige: #f5f5dc;
+    --color-black: #000000;
+}
+
+.stats-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2.5rem;
+    padding: 0 1rem;
+    width: 100%;
+}
+
+.stats-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.stat-card {
+    background-color: var(--beige);
+    color: var(--color-black);
+    padding: 2rem;
+    border-radius: 1rem;
+    text-align: center;
+    width: 100% ;
+    max-width: 20rem;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+}
+
+.stat-card h3 {
+    font-size: 2.5rem;
+    margin: 0;
+}
+
+@media (min-width: 48rem) {
+    .stats-grid {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 3.5rem;
+    }
+    
+    .stat-card {
+        width: 15rem ;
+        max-width: none;
+        margin: 0;
+    }
+}

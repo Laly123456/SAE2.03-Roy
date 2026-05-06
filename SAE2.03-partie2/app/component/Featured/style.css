@@ -1,0 +1,130 @@
+:root {
+    --fond: #000000;
+    --texte: #ffffff;
+    --texte-gris: #eeeeee;
+    --bouton-fond: #ffffff;
+    --bouton-texte: #000000;
+}
+
+.hero-carousel {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    background: var(--fond);
+    overflow: hidden;
+}
+
+.hero-carousel__content {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    height: 100%;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+}
+
+.hero-carousel__content::-webkit-scrollbar {
+    display: none;
+}
+
+.hero-carousel__slide {
+    flex: 0 0 100%;
+    width: 100%;
+    position: relative;
+    scroll-snap-align: start;
+}
+
+.hero-carousel__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+}
+
+.hero-carousel__caption {
+    position: absolute;
+    bottom: 2rem;
+    left: 1rem;
+    right: 1rem;
+    color: var(--texte);
+    z-index: 5;
+}
+
+.hero-carousel__title {
+    font-family: Arial, sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0 0 0.8rem 0;
+    line-height: 1.1;
+}
+
+.hero-carousel__description {
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+    color: var(--texte-gris);
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.hero-carousel__action {
+    background-color: var(--bouton-fond);
+    color: var(--bouton-texte);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Tablette & Desktop */
+@media (min-width: 48rem) {
+    .hero-carousel {
+        height: 75vh;
+    }
+
+    .hero-carousel__caption {
+        bottom: 5rem;
+        left: 4%;
+        max-width: 60%;
+    }
+
+    .hero-carousel__title {
+        font-size: 3.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-carousel__description {
+        font-size: 1.4rem;
+        -webkit-line-clamp: none;
+        margin-bottom: 2rem;
+    }
+
+    .hero-carousel__action {
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+    }
+}
+
+/* Très grands écrans */
+@media (min-width: 80rem) {
+    .hero-carousel__title {
+        font-size: 4.5rem;
+    }
+    
+    .hero-carousel__caption {
+        max-width: 50%;
+    }
+}
+
+.hero-carousel__control {
+    display: none;
+}

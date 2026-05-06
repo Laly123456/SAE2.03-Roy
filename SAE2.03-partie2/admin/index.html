@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <title>SAE2.03 ADMIN</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./css/base.css" />
+    <link rel="stylesheet" href="./css/variables.css" />
+    <link rel="stylesheet" href="./component/MovieForm/style.css" />
+    <link rel="stylesheet" href="./component/ProfileList/style.css" />
+</head>
+<body>
+    <header id="header"></header>
+    <section id="log"></section>
+    <section id="content"></section>
+
+<script type="module">
+    import { Log } from "./component/Log/script.js";
+    import { DataMovie } from "./data/dataMovie.js";
+    import { DataProfile } from "./data/dataProfile.js";
+    import { MovieForm } from "./component/MovieForm/script.js";
+    import { ProfileForm } from "./component/ProfileForm/script.js";
+    import { ProfileList } from "./component/ProfileList/script.js";
+    import { Search } from "./component/Search/script.js";
+
+    window.C = {};
+
+  C.checkEnter = function(e) {
+    let event = e || window.event;
+    if (event.key === "Enter") {
+        C.runSearch();
+    }
+};
+
+C.runSearch = async function() {
+    let input = document.getElementById("mots_cles");
+    if (!input) return; 
+    
+    let q = input.value;
+    let movies = await DataMovie.search(q, 99);
+    Search.renderResults(movies);
+};
+C.toggleFeature = async function(id, current) {
+    let next = current > 0 ? 0 : 1;
+    await DataMovie.toggleFeatured(id, next); 
+    C.runSearch(); 
+};
+
+    C.handlerAddMovie = async function (formData) {
+        let res = await DataMovie.add(formData);
+        if (res) C.start(); 
+    }
+
+    C.handlerAddProfile = async function (formData) {
+        let res = await DataProfile.add(formData);
+        if (res) C.start(); 
+    };
+
+    C.handlerEditProfile = async function (id) {
+        let profiles = await DataProfile.read();
+        for (let i = 0; i < profiles.length; i++) {
+            if (profiles[i].id == id) ProfileForm.fill(profiles[i]);
+        }
+        window.scrollTo(0,0);
+    };
+
+
+    C.checkEnter = function(e) {
+        if (e.key === "Enter") C.runSearch();
+    };
+
+    C.runSearch = async function() {
+        let q = document.getElementById("mots_cles").value;
+        let movies = await DataMovie.search(q, 99);
+        Search.renderResults(movies);
+    };
+
+    C.toggleFeature = async function(id, current) {
+        let next = current > 0 ? 0 : 1;
+        await DataMovie.toggleFeatured(id, next); 
+        C.runSearch(); 
+    };
+
+C.start = async function () {
+    let profiles = await DataProfile.read();
+    let cats = await DataMovie.requestAllCategories();
+    let content = document.getElementById("content");
+    content.innerHTML = ""; 
+
+    content.innerHTML += Search.format();
+    content.innerHTML += ProfileForm.format();
+    
+    content.innerHTML += ProfileList.format(profiles);
+
+    content.innerHTML += MovieForm.format();
+
+    ProfileForm.listenSubmit();
+    MovieForm.fillCategories(cats);
+    MovieForm.listenSubmit();
+    document.getElementById("log").innerHTML = Log.format();
+    if (Log.listen) Log.listen();
+};
+    C.start();
+</script>
+</body>
+</html>

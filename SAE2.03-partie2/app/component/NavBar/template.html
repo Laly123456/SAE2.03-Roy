@@ -1,0 +1,32 @@
+<nav class="main-nav">
+    <div class="main-nav__header">
+        <img src="../server/images/logo/logo.png" alt="Logo" class="main-nav__logo">
+    </div>
+    
+    <div class="main-nav__links">
+        <a href="#" class="main-nav__link" onclick="C.handlerMovie()">Accueil</a>
+        <a href="#" class="main-nav__link" onclick="C.handlerMyList()">Ma liste</a>
+        <a href="#" class="main-nav__link" onclick="C.handlerStats()">Stats</a>
+    </div>
+
+    <div class="desktop-only">
+        <div class="nav-search">
+            <input class="nav-search__input" type="text" id="mots_cles" placeholder="Rechercher un film..." onkeydown="C.checkEnter()">
+        </div>
+
+        <div class="main-nav__profile">
+            <div class="nav-dropdown">
+                <img id="nav-avatar-img" class="nav-user__avatar nav-profile-img" src="../server/images/Profile/profil.jpg" alt="User">
+                
+                <ul id="app-nav-profiles" class="nav-dropdown__menu"></ul>
+
+
+                <template id="tpl-profile-item">
+                    <li>
+                        <a href="#" class="nav-dropdown__item"></a>
+                    </li>
+                </template>
+            </div>
+        </div>
+    </div>
+</nav>

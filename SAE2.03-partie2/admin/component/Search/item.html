@@ -1,0 +1,12 @@
+<div class="movie-card">
+    <div class="movie-card__poster">
+        <img src="../server/images/{{image}}" alt="{{name}}">
+        <div class="movie-card__info">
+            <span class="movie-card__title">{{name}}</span>
+            <span class="movie-card__badge">{{status_text}}</span>
+        </div>
+    </div>
+    <button class="btn-status {{class}}" onclick="C.toggleFeature({{id}}, {{status}})">
+        {{btn_text}}
+    </button>
+</div>
