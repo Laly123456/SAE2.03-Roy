@@ -1,12 +1,12 @@
 <?php
-// define("HOST", "localhost");
-// define("DBNAME", "SAE203");
-// define("DBLOGIN", "laly");
-// define("DBPWD", "Laly08122007");
 define("HOST", "localhost");
-define("DBNAME", "roy80");
-define("DBLOGIN", "roy80");
-define("DBPWD", "roy80");
+define("DBNAME", "SAE203");
+define("DBLOGIN", "laly");
+define("DBPWD", "Laly08122007");
+// define("HOST", "localhost");
+// define("DBNAME", "roy80");
+// define("DBLOGIN", "roy80");
+// define("DBPWD", "roy80");
 
 function getConnexion() {
     return new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD, [
