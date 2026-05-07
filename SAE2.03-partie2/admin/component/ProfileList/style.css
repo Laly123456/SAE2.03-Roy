@@ -2,7 +2,7 @@
     max-width: 37rem; 
     margin: 2rem auto;
     padding: 1.5rem;
-    background-color: var(--fond-formulaire);
+    background-color: var(--gris-fonce);
      color: var(--color-white);
 }
 
@@ -31,14 +31,15 @@
 .profile-list-container button {
     padding: 0.5rem 1rem;
     cursor: pointer;
-    background-color: var(--fond-bouton);
-    color: var(--texte-blanc);
+    background-color: var(--color-white);
+    color: var(--color-black);
     border: none;
     border-radius: 0.5rem;
     font-weight: bold;
 }
 
 .profile-list-container button:hover {
-    background-color: var(--fond-bouton-survol);
+    background-color: var(--gris-clair);
+    color:var(--color-white)
 }
 

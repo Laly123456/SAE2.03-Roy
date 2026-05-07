@@ -8,13 +8,14 @@ DataProfile.read = async function () {
 };
 
 DataProfile.add = async function(formData) {
-    let p = "addProfile";
-    p += "&id=" + formData.get('id');
-    p += "&name=" + formData.get('name');
-    p += "&avatar=" + formData.get('avatar');
-    p += "&age=" + formData.get('age');
+    let query = "saveProfile"; 
+    
+    query += "&id=" + (formData.get('id') || ""); 
+    query += "&name=" + formData.get('name');
+    query += "&avatar=" + formData.get('avatar');
+    query += "&age=" + formData.get('age');
 
-    let res = await fetch("../server/script.php?todo=" + p);
+    let res = await fetch("../server/script.php?todo=" + query);
     return await res.json();
 };
 

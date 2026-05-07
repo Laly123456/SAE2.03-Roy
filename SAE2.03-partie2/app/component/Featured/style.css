@@ -53,7 +53,7 @@
 
 .hero-carousel__title {
     font-family: Arial, sans-serif;
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     font-weight: 700;
     margin: 0 0 0.8rem 0;
     line-height: 1.1;
@@ -63,7 +63,7 @@
     font-family: Arial, sans-serif;
     font-size: 1rem;
     color: var(--texte-gris);
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.2rem;
     font-weight: 400;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -78,6 +78,7 @@
     padding: 0.8rem 1.5rem;
     font-size: 0.9rem;
     font-weight: bold;
+    font-family: Arial, sans-serif;
     border-radius: 0.4rem;
     cursor: pointer;
     display: inline-flex;
@@ -85,7 +86,6 @@
     gap: 0.5rem;
 }
 
-/* Tablette & Desktop */
 @media (min-width: 48rem) {
     .hero-carousel {
         height: 75vh;
@@ -98,7 +98,7 @@
     }
 
     .hero-carousel__title {
-        font-size: 3.5rem;
+        font-size: 3rem;
         margin-bottom: 1.5rem;
     }
 
@@ -111,20 +111,7 @@
     .hero-carousel__action {
         padding: 1rem 2rem;
         font-size: 1.1rem;
+            font-family: Arial, sans-serif;
     }
 }
 
-/* Très grands écrans */
-@media (min-width: 80rem) {
-    .hero-carousel__title {
-        font-size: 4.5rem;
-    }
-    
-    .hero-carousel__caption {
-        max-width: 50%;
-    }
-}
-
-.hero-carousel__control {
-    display: none;
-}

@@ -1,3 +1,7 @@
+body{
+  background-color: var(--fond-formulaire);
+}
+
 .log {
   display: flex;
   align-items: flex-end;

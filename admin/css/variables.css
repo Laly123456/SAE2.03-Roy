@@ -19,9 +19,8 @@
 
 
 
-/* Couleurs simples FORMULAIRE */
     /* --fond-formulaire: #f6f5ed;   */
-    --fond-formulaire: #656261; 
+    --fond-formulaire: #ffffff; 
                      
     --fond-bouton: #ec698f;
     --fond-bouton-survol: #c23350;
@@ -33,5 +32,9 @@
     --jaune-clair : #FFFD6D;
         --jaune-fonce : #9c9b32;
         --jaune-fonce2 : #605f1d;
+
+
+
+--creme:#fffcf2
 
 }

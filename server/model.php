@@ -64,14 +64,25 @@ function readProfiles() {
 
 function saveProfile($id, $name, $avatar, $age) {
     $cnx = getConnexion();
-    $sql = "REPLACE INTO SAE203_Profile (id, name, avatar, age) VALUES (:id, :name, :avatar, :age)";
-    $stmt = $cnx->prepare($sql);
-    return $stmt->execute([
-        ':id'     => $id, 
-        ':name'   => $name, 
-        ':avatar' => $avatar, 
-        ':age'    => $age
-    ]);
+    
+    if (empty($id)) {
+        $sql = "INSERT INTO SAE203_Profile (name, avatar, age) VALUES (:name, :avatar, :age)";
+        $stmt = $cnx->prepare($sql);
+        return $stmt->execute([
+            ':name'   => $name, 
+            ':avatar' => $avatar, 
+            ':age'    => $age
+        ]);
+    } else {
+        $sql = "REPLACE INTO SAE203_Profile (id, name, avatar, age) VALUES (:id, :name, :avatar, :age)";
+        $stmt = $cnx->prepare($sql);
+        return $stmt->execute([
+            ':id'     => $id, 
+            ':name'   => $name, 
+            ':avatar' => $avatar, 
+            ':age'    => $age
+        ]);
+    }
 }
 
 function getFavoritesByProfile($id_profile, $age_max = 99) {

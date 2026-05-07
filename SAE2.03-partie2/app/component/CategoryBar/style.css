@@ -23,14 +23,15 @@
     display: flex;
     gap: 1rem;
     padding: 0 1rem;
+
 }
 
 .category-btn {
     background-color: var(--bouton-fond);
     color: var(--bouton-texte);
     border: none;
-padding: 2rem 6rem; 
-    font-size: 1.6rem;
+padding: 0.8rem 2.6rem; 
+    font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
     white-space: nowrap;
@@ -39,6 +40,8 @@ padding: 2rem 6rem;
     align-items: center;
     justify-content: center;
     transition: transform 0.2s ease;
+    border-radius: 4%;
+
 }
 
 
@@ -61,12 +64,5 @@ padding: 2rem 6rem;
 
     .category-btn:hover {
         transform: scale(1.05);
-    }
-}
-
-@media (min-width: 75rem) {
-    .category-bar__container {
-        max-width: 1200px;
-        margin: 0 auto;
     }
 }

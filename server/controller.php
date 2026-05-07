@@ -57,6 +57,7 @@ function getFeaturedMoviesController() {
 
 function getStatsController() {
     return getStats();
+}
 
 function searchMoviesController() {
     $q = $_REQUEST['q'] ?? "";
@@ -68,5 +69,4 @@ function setPromoController() {
     $id = $_REQUEST['id'] ?? 0;
     $status = $_REQUEST['status'] ?? 0;
     return set_promo($id, $status);
-}
 }

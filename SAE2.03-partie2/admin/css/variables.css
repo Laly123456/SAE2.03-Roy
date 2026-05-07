@@ -21,7 +21,9 @@
 
 /* Couleurs simples FORMULAIRE */
     /* --fond-formulaire: #f6f5ed;   */
-    --fond-formulaire: #656261; 
+    --fond-formulaire: #212529; 
+    --gris-clair:#6c757d;
+    --gris-fonce:#343a40;
                      
     --fond-bouton: #ec698f;
     --fond-bouton-survol: #c23350;
